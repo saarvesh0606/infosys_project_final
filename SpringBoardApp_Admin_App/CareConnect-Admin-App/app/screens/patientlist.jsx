@@ -13,7 +13,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
+//import { useFocusEffect } from '@react-navigation/native';
 
 const PatientListScreen = () => {
   const [patients, setPatients] = useState([]);
@@ -23,7 +23,7 @@ const PatientListScreen = () => {
   // Load the patient list from AsyncStorage
   const loadPatients = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/patients');
+      const response = await axios.get('http://192.168.1.36:5000/api/patients');
       setPatients(response.data);
       await AsyncStorage.setItem('patientList', JSON.stringify(response.data));
     } catch (error) {
@@ -75,7 +75,7 @@ const PatientListScreen = () => {
   // Handle deleting a patient from the list
   const handleDeletePatient = async (patientId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/patients/${patientId}`, {
+      await axios.delete(`http://192.168.1.36:5000/api/patients/${patientId}`, {
         method: 'DELETE',
       });
       // Remove the deleted patient from the list without reloading from backend
@@ -91,12 +91,14 @@ const PatientListScreen = () => {
   };
 
 
-  useFocusEffect(
-    React.useCallback(() => {
-      loadPatients();
-    }, [])
-  );
-
+  //useFocusEffect(
+    //React.useCallback(() => {
+    //  loadPatients();
+   // }, [])
+ // );
+ useEffect(() => {
+  loadPatients();
+}, [])
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -120,7 +122,7 @@ const PatientListScreen = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        key={columns}
+        //key={columns}
         data={patients}
         renderItem={({ item }) => {
           const initials = item.name
@@ -173,7 +175,7 @@ const PatientListScreen = () => {
           );
         }}
         keyExtractor={(item) => item.patientId}
-        numColumns={columns} // Use dynamic column count
+        //numColumns={columns} // Use dynamic column count
         contentContainerStyle={styles.listContainer}
 
       />
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   listContainer: {
-    paddingLeft: 50, // Adjust the padding as needed
+    padding: 10, // Adjust the padding as needed
   },
   patientItem: {
     backgroundColor: '#FFF',

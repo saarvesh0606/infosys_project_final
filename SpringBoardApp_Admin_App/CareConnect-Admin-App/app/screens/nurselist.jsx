@@ -12,7 +12,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons'; // For add and search icons
-import { useFocusEffect } from '@react-navigation/native';
+//import { useFocusEffect } from '@react-navigation/native';
 
 
 const NurseListScreen = () => {
@@ -25,7 +25,7 @@ const NurseListScreen = () => {
   // Load nurse list from the backend
   const loadNurses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/nurses');  // Replace with your backend URL
+      const response = await axios.get('http://192.168.1.36:5000/api/nurses');  // Replace with your backend URL
       setNurses(response.data);
       await AsyncStorage.setItem('nurseList', JSON.stringify(response.data));
     } catch (error) {
@@ -68,7 +68,7 @@ const NurseListScreen = () => {
   // Handle deleting a nurse from the list
   const handleDeleteNurse = async (nurseId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/nurses/${nurseId}`, {
+      const response = await fetch(`http://192.168.1.36:5000/api/nurses/${nurseId}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -82,11 +82,15 @@ const NurseListScreen = () => {
   };
   
   // Use focus effect to reload the list every time the screen is focused
-  useFocusEffect(
-    React.useCallback(() => {
-      loadNurses();
-    }, [])
-  );
+ // useFocusEffect(
+    //React.useCallback(() => {
+     // loadNurses();
+   // }, [])
+  //);
+  useEffect(() => {
+    loadNurses();
+  }, []);
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -206,7 +210,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   listContainer: {
-    paddingHorizontal: 50,
+    paddingVertical: 50,
   },
   nurseItem: {
     backgroundColor: '#FFF',

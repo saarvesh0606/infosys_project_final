@@ -24,7 +24,7 @@ const AddNurseScreen = () => {
     const newNurse = { nurseId, name, mobileOrEmail, department, wardNo };
 
     try {
-      await axios.post('http://localhost:5000/api/nurses', newNurse);
+      await axios.post('http://192.168.1.36:5000/api/nurses', newNurse);
 
       
       setNurses([...nurses, newNurse]);
@@ -45,7 +45,7 @@ const AddNurseScreen = () => {
 
   const fetchNurses = async () => { 
     try {
-      const response = await axios.get('http://localhost:5000/api/nurses');
+      const response = await axios.get('http://192.168.1.36:5000/api/nurses');
       setNurses(response.data); 
     } catch (error) {
       console.error('Error fetching nurses:', error);

@@ -31,7 +31,7 @@ const AddPatientScreen = () => {
 
     try {
       // Send data to backend API (POST request)
-      const response = await axios.post('http://localhost:5000/api/patients', newPatient);
+      const response = await axios.post('http://192.168.1.36:5000/api/patients', newPatient);
       
       // If successful, reset the fields and update patients state
       if (response.status === 201) {
@@ -56,7 +56,7 @@ const AddPatientScreen = () => {
   // Fetch all patients from the backend (GET request)
   const fetchPatients = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/patients');
+      const response = await axios.get('http://192.168.1.36:5000/api/patients');
       setPatients(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);

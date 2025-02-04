@@ -12,7 +12,7 @@ const RequestHistoryScreen = () => {
         const fetchRequests = async () => {
             try {
                 // Fetch from the database
-                const response = await fetch('http://localhost:5000/api/requests');
+                const response = await fetch('http://192.168.1.36:5000/api/requests');
                 const requests = await response.json();
                 setFilteredRequests(requests);
 
